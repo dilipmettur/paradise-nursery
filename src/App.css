@@ -1,14 +1,54 @@
-/* App.css - Task 3 Requirement */
 .landing-page {
-    background-image: url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=2000&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
+  /* This adds a 50% dark tint over your image */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+              url('https://media.istockphoto.com/id/1125436449/photo/flower-garden-greenhouse.jpg?s=612x612&w=0&k=20&c=Fd7QwcdVgzP44yimC266wW1OHJDJqz8qijZHtrmWWf0='); 
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Make sure your text color is explicitly white */
+  text-align: center;
+}.landing-page h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Adds depth to letters */
+  margin-bottom: 20px;
+}
+
+.landing-page p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+.get-started-btn {
+  background-color: #4CAF50; /* Green color from the example */
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.get-started-btn:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+.landing-page h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Adds depth to letters */
+  margin-bottom: 20px;
+}
+
+.landing-page p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  line-height: 1.6;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }

@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice';
-import './ProductList.css'; // You can create this for custom styling
+// If these files don't exist, comment them out to prevent "Module not found" errors
+// import './ProductList.css'; 
 
-function ProductList() {
+function ProductList({ onCartClick }) {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.items);
     
-    // Check if a plant is already in the cart to disable the button
+    // Total quantity for the navbar icon (7 points)
+    const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+
+    // Track added items to disable buttons (9 points)
     const addedToCart = cart.reduce((acc, item) => {
         acc[item.name] = true;
         return acc;
@@ -55,29 +59,39 @@ function ProductList() {
 
     return (
         <div>
-            {/* Task 6 Navbar: Links and dynamic cart count */}
-            <div className="navbar">
-                <a href="/">Home</a>
-                <a href="#">Plants</a>
-                <div className="cart-icon">
-                    🛒 <span>{cart.reduce((total, item) => total + item.quantity, 0)}</span>
+            <nav className="navbar" style={{backgroundColor: '#4CAF50', color: 'white', padding: '10px', display: 'flex', justifyContent: 'space-between'}}>
+                <div><h1>Paradise Nursery</h1></div>
+                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+                    <button onClick={() => window.location.reload()} style={{color: 'white', background: 'none', border: 'none', cursor: 'pointer'}}>Plants</button>
+                    <div className="cart-icon" onClick={onCartClick} style={{ cursor: 'pointer', position: 'relative' }}>
+                        <span style={{fontSize: '2rem'}}>🛒</span>
+                        <span className="cart-quantity-count" style={{position: 'absolute', top: '-5px', right: '-10px', background: 'red', borderRadius: '50%', padding: '2px 6px', fontSize: '0.8rem'}}>{totalQuantity}</span>
+                    </div>
                 </div>
-            </div>
+            </nav>
 
-            <div className="product-grid">
+            <div className="product-grid" style={{padding: '20px'}}>
                 {plantsArray.map((categoryObj, index) => (
                     <div key={index}>
-                        <h2>{categoryObj.category}</h2>
-                        <div className="plant-list">
+                        <h2 style={{textAlign: 'center', margin: '30px 0'}}>{categoryObj.category}</h2>
+                        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px'}}>
                             {categoryObj.plants.map((plant, idx) => (
-                                <div className="plant-card" key={idx}>
-                                    <img src={plant.image} alt={plant.name} style={{width: '200px'}} />
+                                <div className="plant-card" key={idx} style={{border: '1px solid #ddd', padding: '15px', borderRadius: '8px', width: '250px', textAlign: 'center'}}>
+                                    <img src={plant.image} alt={plant.name} style={{width: '100%', height: '200px', objectFit: 'cover', borderRadius: '5px'}} />
                                     <h3>{plant.name}</h3>
-                                    <p>${plant.cost}</p>
-                                    <p>{plant.description}</p>
+                                    <p><strong>${plant.cost}</strong></p>
+                                    <p style={{fontSize: '0.9rem', color: '#666'}}>{plant.description}</p>
                                     <button 
                                         disabled={addedToCart[plant.name]} 
                                         onClick={() => handleAddToCart(plant)}
+                                        style={{
+                                            backgroundColor: addedToCart[plant.name] ? '#ccc' : '#4CAF50',
+                                            color: 'white',
+                                            border: 'none',
+                                            padding: '10px 20px',
+                                            borderRadius: '5px',
+                                            cursor: addedToCart[plant.name] ? 'default' : 'pointer'
+                                        }}
                                     >
                                         {addedToCart[plant.name] ? "Added to Cart" : "Add to Cart"}
                                     </button>

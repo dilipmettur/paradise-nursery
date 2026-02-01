@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import './App.css';
-import ProductList from './ProductList'; // You will create this for Task 6
+import ProductList from './ProductList';
 import AboutUs from './AboutUs';
+import CartItem from './CartItem'; // Import your Cart component
 
 function App() {
   const [showProductList, setShowProductList] = useState(false);
+  const [showCart, setShowCart] = useState(false); // New state for Cart
 
   const handleGetStartedClick = () => {
     setShowProductList(true);
   };
 
+  const handleContinueShopping = () => {
+    setShowCart(false);
+  };
+
   return (
     <div className="app-container">
-      {/* Task 4: Landing Page Logic */}
       {!showProductList ? (
         <div className="landing-page">
           <div className="background-image"></div>
@@ -26,7 +31,14 @@ function App() {
           <AboutUs />
         </div>
       ) : (
-        <ProductList />
+        /* This is where the magic happens: conditional rendering */
+        <div className={`product-container ${showCart ? 'changed' : ''}`}>
+          {showCart ? (
+            <CartItem onContinueShopping={handleContinueShopping} />
+          ) : (
+            <ProductList onCartClick={() => setShowCart(true)} />
+          )}
+        </div>
       )}
     </div>
   );
