@@ -34,7 +34,7 @@ function App() {
         /* This is where the magic happens: conditional rendering */
         <div className={`product-container ${showCart ? 'changed' : ''}`}>
           {showCart ? (
-            <CartItem onContinueShopping={handleContinueShopping} />
+            <CartItem onContinueShopping={() => setShowCart(false)} />
           ) : (
             <ProductList onCartClick={() => setShowCart(true)} />
           )}
